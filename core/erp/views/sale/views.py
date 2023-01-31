@@ -111,7 +111,7 @@ class SaleUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Update
     form_class = SaleForm
     template_name = 'sale/create.html'
     success_url = reverse_lazy('erp:sale_list')
-    permission_required = 'erp.add_sale'
+    permission_required = 'erp.change_sale'
     url_redirect = success_url
 
     @method_decorator(csrf_exempt)
@@ -129,7 +129,7 @@ class SaleUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Update
                     item = i.toJSON()
                     item['value'] = i.name
                     data.append(item)
-            elif action == 'add':
+            elif action == 'edit':
                 with transaction.atomic():
                     vents = json.loads(request.POST['vents'])
                     sale = Sale()
@@ -153,14 +153,19 @@ class SaleUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Update
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+    def get_details_prodct(self):
+        try:
+            DetSale.objects.filter()
+        except:
+            pass:
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación de una Venta'
+        context['title'] = 'Edición de una Venta'
         context['entity'] = 'Ventas'
         context['list_url'] = self.success_url
-        context['action'] = 'add'
+        context['action'] = 'edit'
         return context
-
 
 
 class SaleDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, DeleteView):
