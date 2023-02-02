@@ -132,13 +132,15 @@ class SaleUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Update
             elif action == 'edit':
                 with transaction.atomic():
                     vents = json.loads(request.POST['vents'])
-                    sale = Sale()
+                    #sale = Sale.objects.get(pk=self.get_object().id)
+                    sale = self.get_object()
                     sale.date_joined = vents['date_joined']
                     sale.cli_id = vents['cli']
                     sale.subtotal = float(vents['subtotal'])
                     sale.iva = float(vents['iva'])
                     sale.total = float(vents['total'])
                     sale.save()
+                    sale.detsale_set.all().delete()
                     for i in vents['products']:
                         det = DetSale()
                         det.sale_id = sale.id
@@ -153,11 +155,16 @@ class SaleUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Update
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
-    def get_details_prodct(self):
+    def get_details_product(self):
+        data = []
         try:
-            DetSale.objects.filter()
+            for i in DetSale.objects.filter(sale_id=self.get_object().id):
+                item = i.prod.toJSON()
+                item['cant'] = i.cant
+                data.append(item)
         except:
-            pass:
+            pass
+        return data
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -165,6 +172,7 @@ class SaleUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Update
         context['entity'] = 'Ventas'
         context['list_url'] = self.success_url
         context['action'] = 'edit'
+        context['det'] = json.dumps(self.get_details_product())
         return context
 
 
