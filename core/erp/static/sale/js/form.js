@@ -90,6 +90,8 @@ var vents = {
 
             }
         });
+        console.clear();
+        console.log(this.items);
     },
 };
 
@@ -99,7 +101,7 @@ function formatRepo(repo) {
     }
 
     var option = $(
-        '<div class="wrapper container">'+
+        '<div class="wrapper container">' +
         '<div class="row">' +
         '<div class="col-lg-1">' +
         '<img src="' + repo.image + '" class="img-fluid img-thumbnail d-block mx-auto rounded">' +
@@ -109,7 +111,7 @@ function formatRepo(repo) {
         '<p style="margin-bottom: 0;">' +
         '<b>Nombre:</b> ' + repo.name + '<br>' +
         '<b>Categoría:</b> ' + repo.cat.name + '<br>' +
-        '<b>PVP:</b> <span class="badge badge-warning">$'+repo.pvp+'</span>'+
+        '<b>PVP:</b> <span class="badge badge-warning">$' + repo.pvp + '</span>' +
         '</p>' +
         '</div>' +
         '</div>' +
@@ -183,6 +185,8 @@ $(function () {
         alert_action('Notificación', '¿Estas seguro de eliminar todos los items de tu detalle?', function () {
             vents.items.products = [];
             vents.list();
+        }, function () {
+
         });
     });
 
@@ -190,10 +194,13 @@ $(function () {
     $('#tblProducts tbody')
         .on('click', 'a[rel="remove"]', function () {
             var tr = tblProducts.cell($(this).closest('td, li')).index();
-            alert_action('Notificación', '¿Estas seguro de eliminar el producto de tu detalle?', function () {
-                vents.items.products.splice(tr.row, 1);
-                vents.list();
-            });
+            alert_action('Notificación', '¿Estas seguro de eliminar el producto de tu detalle?',
+                function () {
+                    vents.items.products.splice(tr.row, 1);
+                    vents.list();
+                }, function () {
+
+                });
         })
         .on('change', 'input[name="cant"]', function () {
             console.clear();
@@ -222,9 +229,15 @@ $(function () {
         var parameters = new FormData();
         parameters.append('action', $('input[name="action"]').val());
         parameters.append('vents', JSON.stringify(vents.items));
-        submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function () {
-            location.href = '/erp/sale/list/';
-        });
+        submit_with_ajax(window.location.pathname, 'Notificación',
+            '¿Estas seguro de realizar la siguiente acción?', parameters, function (response) {
+                alert_action('Notificación', '¿Desea imprimir la boleta de venta?', function () {
+                    window.open('/erp/sale/invoice/pdf/' + response.id + '/', '_blank');
+                    location.href = '/erp/sale/list/';
+                }, function () {
+                    location.href = '/erp/sale/list/';
+                });
+            });
     });
 
     $('select[name="search"]').select2({
@@ -259,7 +272,7 @@ $(function () {
         $(this).val('').trigger('change.select2');
     });
 
-    vents.list();
     // Esto se puso aqui para que funcione bien el editar y calcule bien los valores del iva. // sino tomaría el valor del iva de la base debe
     // coger el que pusimos al inicializarlo.
+    vents.list();
 });
