@@ -68,15 +68,15 @@
     {% endfor %}
     <tr style="border-top: 1px solid black; padding-top: 4px;">
         <td colspan="4"><b>SUBTOTAL</b></td>
-        <td style="text-align: right">{{ sale.subtotal }}</td>
+        <td style="text-align: right">${{ sale.subtotal }}</td>
     </tr>
     <tr style="padding-top: 0px;">
         <td colspan="4"><b>IVA 12%</b></td>
-        <td style="text-align: right">{{ sale.iva }}</td>
+        <td style="text-align: right">${{ sale.iva }}</td>
     </tr>
     <tr style="padding-top: 0px;">
         <td colspan="4"><b>TOTAL A PAGAR</b></td>
-        <td style="text-align: right">{{ sale.total }}</td>
+        <td style="text-align: right">${{ sale.total }}</td>
     </tr>
     </tbody>
 </table>
@@ -86,7 +86,7 @@
         <th>****GRACIAS POR SU COMPRA****</th>
     </tr>
     <tr>
-        <th>NO SE ACEPTAN CAMBIOS NI DEVOLUCIONES</th>
+        <th>NOSE ACEPTAN CAMBIOS NI DEVOLUCIONES</th>
     </tr>
     </thead>
 </table>
