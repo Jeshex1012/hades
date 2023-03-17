@@ -7,6 +7,9 @@ from django.views.generic import TemplateView
 from core.erp.models import Sale
 from core.reports.forms import ReportForm
 
+from django.db.models.functions import Coalesce
+from django.db.models import Sum, FloatField
+
 
 class ReportSaleView(TemplateView):
     template_name = 'sale/report.html'
@@ -35,6 +38,22 @@ class ReportSaleView(TemplateView):
                         format(s.iva, '.2f'),
                         format(s.total, '.2f'),
                     ])
+
+                # subtotal = search.aggregate(r=Coalesce(Sum('subtotal'), 0)).get('r')
+                # iva = search.aggregate(r=Coalesce(Sum('iva'), 0)).get('r')
+                # total = search.aggregate(r=Coalesce(Sum('total'), 0)).get('r')
+                subtotal = float(search.aggregate(r=Coalesce(Sum('subtotal'), 0.00, output_field=FloatField())).get('r'))
+                iva = float(search.aggregate(r=Coalesce(Sum('iva'), 0.00, output_field=FloatField())).get('r'))
+                total = float(search.aggregate(r=Coalesce(Sum('total'), 0.00, output_field=FloatField())).get('r'))
+
+                data.append([
+                    '---',
+                    '---',
+                    '---',
+                    format(subtotal, '.2f'),
+                    format(iva, '.2f'),
+                    format(total, '.2f'),
+                ])
             else:
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
