@@ -19,14 +19,19 @@ class CategoryListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, List
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
+    # Organizar posición de numero
     def post(self, request, *args, **kwargs):
         data = {}
         try:
             action = request.POST['action']
             if action == 'searchdata':
                 data = []
+                position = 1
                 for i in Category.objects.all():
-                    data.append(i.toJSON())
+                    item = i.toJSON()
+                    item['position'] = position
+                    data.append(item)
+                    position += 1
             else:
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:

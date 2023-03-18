@@ -27,7 +27,7 @@
                 {% endif %}
                 <div class="alert alert-danger alert-dismissible">
                     <h5><i class="icon fas fa-ban"></i> Notificación!</h5>
-                    ¿Estas seguro de eliminar el registro N°{{ object.id }}?
+                    ¿Estás seguro de eliminar el registro N°{{ object.id }}?
                 </div>
             </div>
             <div class="card-footer">
@@ -45,7 +45,14 @@
             e.preventDefault();
             var parameters = new FormData(this);
             submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de eliminar el siguiente registro?', parameters, function () {
-                location.href = '{{ list_url }}';
+                Swal.fire({
+                    title: 'Alerta!',
+                    text: 'Registro eliminado correctamente',
+                    icon: 'success',
+                    timer: 2000
+                }).then((result) => {
+                    location.href = '{{ list_url }}';
+                });
             });
         });
     </script>
