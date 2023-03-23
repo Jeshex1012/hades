@@ -35,13 +35,13 @@ function generate_report() {
                 extend: 'excelHtml5',
                 text: 'Descargar Excel <i class="fas fa-file-excel"></i>',
                 titleAttr: 'Excel',
-                className: 'btn btn-success btn-flat btn-xs'
+                className: 'btn btn-success btn-xs'
             },
             {
                 extend: 'pdfHtml5',
                 text: 'Descargar Pdf <i class="fas fa-file-pdf"></i>',
                 titleAttr: 'PDF',
-                className: 'btn btn-danger btn-flat btn-xs',
+                className: 'btn btn-danger btn-xs',
                 download: 'open',
                 orientation: 'landscape',
                 pageSize: 'LEGAL',
@@ -82,7 +82,7 @@ function generate_report() {
                                 },
                                 {
                                     alignment: 'right',
-                                    text: ['página ', {text: page.toString()}, ' de ', {text: pages.toString()}]
+                                    text: ['Página ', {text: page.toString()}, ' de ', {text: pages.toString()}]
                                 }
                             ],
                             margin: 20
@@ -104,7 +104,7 @@ function generate_report() {
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                    return '$' + parseFloat(data).toFixed(2);
+                    return '$' + parseFloat(data).toFixed(3);
                 }
             },
         ],

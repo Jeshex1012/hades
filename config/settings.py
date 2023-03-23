@@ -140,9 +140,18 @@ MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'user.User'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+# Email
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'djangologin99@gmail.com'
+
+EMAIL_HOST_PASSWORD = '0m4gATi3rr@'
+
+DOMAIN = ''

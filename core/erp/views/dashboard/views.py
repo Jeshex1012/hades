@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.http import JsonResponse
@@ -12,7 +13,7 @@ from core.erp.models import Sale, Product, DetSale
 from random import randint
 
 
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     @method_decorator(csrf_exempt)
@@ -29,14 +30,14 @@ class DashboardView(TemplateView):
             action = request.POST['action']
             if action == 'get_graph_sales_year_month':
                 data = {
-                    'name': 'Porcentaje de venta',
+                    'name': 'Porcentaje de venta.',
                     'showInLegend': False,
                     'colorByPoint': True,
                     'data': self.get_graph_sales_year_month()
                 }
             elif action == 'get_graph_sales_products_year_month':
                 data = {
-                    'name': 'Porcentaje',
+                    'name': 'Porcentaje.',
                     'colorByPoint': True,
                     'data': self.get_graph_sales_products_year_month(),
                 }
@@ -44,7 +45,7 @@ class DashboardView(TemplateView):
                 data = {'y': randint(1, 100)}
                 print(data)
             else:
-                data['error'] = 'Ha ocurrido un error'
+                data['error'] = 'Ha ocurrido un error.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
@@ -81,6 +82,6 @@ class DashboardView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['panel'] = 'Panel de administrador'
+        context['panel'] = 'Panel de administrador.'
         context['graph_sales_year_month'] = self.get_graph_sales_year_month()
         return context

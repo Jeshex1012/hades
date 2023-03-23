@@ -15,7 +15,7 @@
                 {% if form.errors %}
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                        <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro.</h5>
                         <ul>
                             {% for field in form %}
                                 {% for error in field.errors %}
@@ -27,15 +27,15 @@
                 {% endif %}
                 <div class="alert alert-danger alert-dismissible">
                     <h5><i class="icon fas fa-ban"></i> Notificación!</h5>
-                    ¿Estas seguro de eliminar el registro N°{{ object.id }}?
+                    ¿Estás seguro de eliminar el registro N° {{ object.id }}?
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-flat">
-                    <i class="fas fa-save"></i> Si, aceptar
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Sí, aceptar.
                 </button>
-                <a href="{{ list_url }}" class="btn btn-danger btn-flat">
-                    <i class="fas fa-times"></i> Cancelar
+                <a href="{{ list_url }}" class="btn btn-danger">
+                    <i class="fas fa-times"></i> Cancelar.
                 </a>
             </div>
         </div>
@@ -44,7 +44,7 @@
         $('form').on('submit', function (e) {
             e.preventDefault();
             var parameters = new FormData(this);
-            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de eliminar el siguiente registro?', parameters, function () {
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estás seguro de eliminar el siguiente registro?', parameters, function () {
                 Swal.fire({
                     title: 'Alerta',
                     text: 'Registro eliminado correctamente',

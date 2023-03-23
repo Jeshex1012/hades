@@ -60,7 +60,7 @@ $(function () {
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                    return '$' + parseFloat(data).toFixed(2);
+                    return '$' + parseFloat(data).toFixed(3);
                 }
             },
             {
@@ -68,10 +68,10 @@ $(function () {
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                    var buttons = '<a href="/erp/sale/delete/' + row.id + '/" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a> ';
-                    buttons += '<a href="/erp/sale/update/' + row.id + '/" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a> ';
-                    buttons += '<a rel="details" class="btn btn-success btn-xs btn-flat"><i class="fas fa-search"></i></a> ';
-                    buttons += '<a href="/erp/sale/invoice/pdf/'+row.id+'/" target="_blank" class="btn btn-info btn-xs btn-flat"><i class="fas fa-file-pdf"></i></a> ';
+                    var buttons = '<a href="/erp/sale/delete/' + row.id + '/" class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i></a> ';
+                    buttons += '<a href="/erp/sale/update/' + row.id + '/" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a> ';
+                    buttons += '<a rel="details" class="btn btn-success btn-xs"><i class="fas fa-search"></i></a> ';
+                    buttons += '<a href="/erp/sale/invoice/pdf/'+row.id+'/" target="_blank" class="btn btn-info btn-xs"><i class="fas fa-file-pdf"></i></a> ';
                     return buttons;
                 }
             },
@@ -114,7 +114,8 @@ $(function () {
                         targets: [-1, -3],
                         class: 'text-center',
                         render: function (data, type, row) {
-                            return '$' + parseFloat(data).toFixed(2);
+                            //digits: 3
+                            return '$' + parseFloat(data).toFixed(3);
                         }
                     },
                     {

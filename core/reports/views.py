@@ -34,36 +34,34 @@ class ReportSaleView(TemplateView):
                         s.id,
                         s.cli.names,
                         s.date_joined.strftime('%Y-%m-%d'),
-                        format(s.subtotal, '.2f'),
-                        format(s.iva, '.2f'),
-                        format(s.total, '.2f'),
+                        format(s.subtotal, '.3f'),
+                        format(s.iva, '.3f'),
+                        format(s.total, '.3f'),
                     ])
 
-                # subtotal = search.aggregate(r=Coalesce(Sum('subtotal'), 0)).get('r')
-                # iva = search.aggregate(r=Coalesce(Sum('iva'), 0)).get('r')
-                # total = search.aggregate(r=Coalesce(Sum('total'), 0)).get('r')
-                subtotal = float(search.aggregate(r=Coalesce(Sum('subtotal'), 0.00, output_field=FloatField())).get('r'))
-                iva = float(search.aggregate(r=Coalesce(Sum('iva'), 0.00, output_field=FloatField())).get('r'))
-                total = float(search.aggregate(r=Coalesce(Sum('total'), 0.00, output_field=FloatField())).get('r'))
+                subtotal = float(search.aggregate(r=Coalesce(Sum('subtotal'), 0.000, output_field=FloatField())).get('r'))
+                iva = float(search.aggregate(r=Coalesce(Sum('iva'), 0.000, output_field=FloatField())).get('r'))
+                total = float(search.aggregate(r=Coalesce(Sum('total'), 0.000, output_field=FloatField())).get('r'))
 
                 data.append([
                     '---',
                     '---',
                     '---',
-                    format(subtotal, '.2f'),
-                    format(iva, '.2f'),
-                    format(total, '.2f'),
+                    format(subtotal, '.3f'),
+                    format(iva, '.3f'),
+                    format(total, '.3f'),
                 ])
             else:
-                data['error'] = 'Ha ocurrido un error'
+                data['error'] = 'Ha ocurrido un error.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Reporte de Ventas'
+        context['title'] = 'Reporte de Ventas.'
         context['entity'] = 'Reportes'
         context['list_url'] = reverse_lazy('sale_report')
         context['form'] = ReportForm()
         return context
+

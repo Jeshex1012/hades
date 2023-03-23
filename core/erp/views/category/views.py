@@ -13,13 +13,12 @@ from core.erp.models import Category
 class CategoryListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = Category
     template_name = 'category/list.html'
-    permission_required = 'erp.view_category'
+    permission_required = 'view_category'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-    # Organizar posición de numero
     def post(self, request, *args, **kwargs):
         data = {}
         try:
@@ -33,14 +32,14 @@ class CategoryListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, List
                     data.append(item)
                     position += 1
             else:
-                data['error'] = 'Ha ocurrido un error'
+                data['error'] = 'Ha ocurrido un error.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Listado de Categorías'
+        context['title'] = 'Listado de Categorías.'
         context['create_url'] = reverse_lazy('erp:category_create')
         context['list_url'] = reverse_lazy('erp:category_list')
         context['entity'] = 'Categorias'
@@ -52,7 +51,7 @@ class CategoryCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cr
     form_class = CategoryForm
     template_name = 'category/create.html'
     success_url = reverse_lazy('erp:category_list')
-    permission_required = 'erp.add_category'
+    permission_required = 'add_category'
     url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
@@ -66,14 +65,14 @@ class CategoryCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Cr
                 form = self.get_form()
                 data = form.save()
             else:
-                data['error'] = 'No ha ingresado a ninguna opción'
+                data['error'] = 'No ha ingresado a ninguna opción.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación una Categoria'
+        context['title'] = 'Crear Categoría'
         context['entity'] = 'Categorias'
         context['list_url'] = self.success_url
         context['action'] = 'add'
@@ -85,7 +84,7 @@ class CategoryUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Up
     form_class = CategoryForm
     template_name = 'category/create.html'
     success_url = reverse_lazy('erp:category_list')
-    permission_required = 'erp.change_category'
+    permission_required = 'change_category'
     url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
@@ -100,14 +99,14 @@ class CategoryUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Up
                 form = self.get_form()
                 data = form.save()
             else:
-                data['error'] = 'No ha ingresado a ninguna opción'
+                data['error'] = 'No ha ingresado a ninguna opción.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Edición una Categoria'
+        context['title'] = 'Editar Categoría'
         context['entity'] = 'Categorias'
         context['list_url'] = self.success_url
         context['action'] = 'edit'
@@ -118,7 +117,7 @@ class CategoryDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, De
     model = Category
     template_name = 'category/delete.html'
     success_url = reverse_lazy('erp:category_list')
-    permission_required = 'erp.delete_category'
+    permission_required = 'delete_category'
     url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
@@ -135,7 +134,7 @@ class CategoryDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, De
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminación de una Categoria'
+        context['title'] = 'Eliminar Categoría'
         context['entity'] = 'Categorias'
         context['list_url'] = self.success_url
         return context

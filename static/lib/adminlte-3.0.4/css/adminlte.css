@@ -66,7 +66,8 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #ffffff;
+  background-color: #ffffff ;
+  /*background-color: #ffffff;*/
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -2573,7 +2574,7 @@ a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
 }
-
+/* Color Botón Primary */
 .btn-primary {
   color: #ffffff;
   background-color: #007bff;
@@ -2611,7 +2612,7 @@ fieldset:disabled a.btn {
 .show > .btn-primary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(38, 143, 255, 0.5);
 }
-
+/* Color Botón Secondary */
 .btn-secondary {
   color: #ffffff;
   background-color: #6c757d;
@@ -2649,7 +2650,7 @@ fieldset:disabled a.btn {
 .show > .btn-secondary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(130, 138, 145, 0.5);
 }
-
+/* Color Botón Success */
 .btn-success {
   color: #ffffff;
   background-color: #28a745;
@@ -2687,7 +2688,7 @@ fieldset:disabled a.btn {
 .show > .btn-success.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(72, 180, 97, 0.5);
 }
-
+/* Color Botón Info */
 .btn-info {
   color: #ffffff;
   background-color: #17a2b8;
@@ -2725,7 +2726,7 @@ fieldset:disabled a.btn {
 .show > .btn-info.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(58, 176, 195, 0.5);
 }
-
+/* Color Botón Warning */
 .btn-warning {
   color: #1F2D3D;
   background-color: #ffc107;
@@ -2763,7 +2764,7 @@ fieldset:disabled a.btn {
 .show > .btn-warning.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(221, 171, 15, 0.5);
 }
-
+/* Color Botón Danger */
 .btn-danger {
   color: #ffffff;
   background-color: #dc3545;
@@ -2801,7 +2802,7 @@ fieldset:disabled a.btn {
 .show > .btn-danger.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(225, 83, 97, 0.5);
 }
-
+/* Color Botón */
 .btn-light {
   color: #1F2D3D;
   background-color: #f8f9fa;
@@ -2839,7 +2840,7 @@ fieldset:disabled a.btn {
 .show > .btn-light.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(215, 218, 222, 0.5);
 }
-
+/* Color Botón */
 .btn-dark {
   color: #ffffff;
   background-color: #343a40;
@@ -3133,7 +3134,7 @@ fieldset:disabled a.btn {
 .show > .btn-outline-dark.dropdown-toggle:focus {
   box-shadow: 0 0 0 0 rgba(52, 58, 64, 0.5);
 }
-
+/* Color Botón Link */
 .btn-link {
   font-weight: 400;
   color: #007bff;

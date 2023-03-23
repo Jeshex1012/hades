@@ -31,7 +31,7 @@ class TestView(TemplateView):
                     item['text'] = i.name
                     data.append(item)
             else:
-                data['error'] = 'Ha ocurrido un error'
+                data['error'] = 'Ha ocurrido un error.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)

@@ -13,7 +13,7 @@ from core.erp.models import Client
 class ClientListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = Client
     template_name = 'client/list.html'
-    permission_required = 'erp.view_client'
+    permission_required = 'view_client'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -28,14 +28,14 @@ class ClientListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
                 for i in Client.objects.all():
                     data.append(i.toJSON())
             else:
-                data['error'] = 'Ha ocurrido un error'
+                data['error'] = 'Ha ocurrido un error.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Listado de Clientes'
+        context['title'] = 'Listado de Clientes.'
         context['create_url'] = reverse_lazy('erp:client_create')
         context['list_url'] = reverse_lazy('erp:client_list')
         context['entity'] = 'Clientes'
@@ -47,7 +47,7 @@ class ClientCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Crea
     form_class = ClientForm
     template_name = 'client/create.html'
     success_url = reverse_lazy('erp:client_list')
-    permission_required = 'erp.add_client'
+    permission_required = 'add_client'
     url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
@@ -61,14 +61,14 @@ class ClientCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Crea
                 form = self.get_form()
                 data = form.save()
             else:
-                data['error'] = 'No ha ingresado a ninguna opción'
+                data['error'] = 'No ha ingresado a ninguna opción.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación un Cliente'
+        context['title'] = 'Crear Cliente'
         context['entity'] = 'Clientes'
         context['list_url'] = self.success_url
         context['action'] = 'add'
@@ -80,7 +80,7 @@ class ClientUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upda
     form_class = ClientForm
     template_name = 'client/create.html'
     success_url = reverse_lazy('erp:client_list')
-    permission_required = 'erp.change_client'
+    permission_required = 'change_client'
     url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
@@ -95,14 +95,14 @@ class ClientUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Upda
                 form = self.get_form()
                 data = form.save()
             else:
-                data['error'] = 'No ha ingresado a ninguna opción'
+                data['error'] = 'No ha ingresado a ninguna opción.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Edición un Cliente'
+        context['title'] = 'Editar Cliente'
         context['entity'] = 'Clientes'
         context['list_url'] = self.success_url
         context['action'] = 'edit'
@@ -113,7 +113,7 @@ class ClientDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Dele
     model = Client
     template_name = 'client/delete.html'
     success_url = reverse_lazy('erp:client_list')
-    permission_required = 'erp.delete_client'
+    permission_required = 'delete_client'
     url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
@@ -130,7 +130,7 @@ class ClientDeleteView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Dele
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminación de un Cliente'
+        context['title'] = 'Eliminar Cliente'
         context['entity'] = 'Clientes'
         context['list_url'] = self.success_url
         return context
