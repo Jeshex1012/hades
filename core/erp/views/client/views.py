@@ -27,6 +27,30 @@ class ClientListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
                 data = []
                 for i in Client.objects.all():
                     data.append(i.toJSON())
+            # Crear clientes
+            elif action == 'add':
+                cli = Client()
+                cli.names = request.POST['names']
+                cli.surnames = request.POST['surnames']
+                cli.cc = request.POST['cc']
+                cli.date_birthday = request.POST['date_birthday']
+                cli.address = request.POST['address']
+                cli.gender = request.POST['gender']
+                cli.save()
+            # Editar clientes
+            elif action == 'edit':
+                cli = Client.objects.get(pk=request.POST['id'])
+                cli.names = request.POST['names']
+                cli.surnames = request.POST['surnames']
+                cli.cc = request.POST['cc']
+                cli.date_birthday = request.POST['date_birthday']
+                cli.address = request.POST['address']
+                cli.gender = request.POST['gender']
+                cli.save()
+            # Eliminar cliente
+            elif action == 'delete':
+                cli = Client.objects.get(pk=request.POST['id'])
+                cli.delete()
             else:
                 data['error'] = 'Ha ocurrido un error.'
         except Exception as e:
@@ -39,6 +63,7 @@ class ClientListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListVi
         context['create_url'] = reverse_lazy('erp:client_create')
         context['list_url'] = reverse_lazy('erp:client_list')
         context['entity'] = 'Clientes'
+        context['form'] = ClientForm()
         return context
 
 

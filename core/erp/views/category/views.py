@@ -31,6 +31,22 @@ class CategoryListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, List
                     item['position'] = position
                     data.append(item)
                     position += 1
+            # Crear categoría
+            elif action == 'add':
+                cat = Category()
+                cat.name = request.POST['name']
+                cat.desc = request.POST['desc']
+                cat.save()
+            # Editar categoría
+            elif action == 'edit':
+                cat = Category.objects.get(pk=request.POST['id'])
+                cat.name = request.POST['name']
+                cat.desc = request.POST['desc']
+                cat.save()
+            # Eliminar categoría
+            elif action == 'delete':
+                cat = Category.objects.get(pk=request.POST['id'])
+                cat.delete()
             else:
                 data['error'] = 'Ha ocurrido un error.'
         except Exception as e:
@@ -43,6 +59,7 @@ class CategoryListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, List
         context['create_url'] = reverse_lazy('erp:category_create')
         context['list_url'] = reverse_lazy('erp:category_list')
         context['entity'] = 'Categorias'
+        context['form'] = CategoryForm()
         return context
 
 

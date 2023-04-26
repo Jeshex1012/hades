@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class UserConfig(AppConfig):
-    name = 'core.user'
+#class UserConfig(AppConfig):
+#    name = 'core.user'
